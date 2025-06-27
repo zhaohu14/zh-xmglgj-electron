@@ -1,0 +1,83 @@
+.menuHeader {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 2px 2px 2px 2px #dbdbdb;
+  overflow: visible;
+  max-height: 100px;
+}
+
+.images {
+  margin-left: 20px;
+  height: 30px;
+  width: 30px;
+}
+.menuHeader .images img {
+  width: 30px;
+  height: 30px;
+}
+
+.menuHeader .menus_rows {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  margin-left: 10px;
+  border: 1px solid #dbdbdb;
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+}
+
+.menuHeader .menus_rows:hover {
+  background: #dbdbdb;
+}
+
+.menus_rows .menus_chidren {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  min-width: 120px;
+  background: #fff;
+  min-width: 100px;
+  z-index: 900;
+}
+
+.menus_rows .menus_chidren .menus_chidren_rows {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  border-bottom: 1px solid #dbdbdb;
+  color: #000;
+  text-align: left;
+}
+
+.menuHeader .inputs {
+  display: none;
+}
+
+.menuHeader .changeProjectRows {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.menuHeader .changeProjectRows .box-card {
+  width: 400px;
+  min-height: 400px;
+}
+
+.menuHeader .changeProjectRows .box-card .inpuutRows {
+  margin-bottom: 10px;
+}
+
+.menuHeader .changeProjectRows .box-card .btns {
+  margin: 0 auto;
+}

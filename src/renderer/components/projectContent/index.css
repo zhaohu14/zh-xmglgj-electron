@@ -1,0 +1,32 @@
+.projectContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: flex-start;
+  align-content: flex-start; /* 关键修复属性 */
+  gap: 10px;
+}
+
+.projectContent .projectRows {
+  border: 1px solid #dbdbdb;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px #dbdbdb;
+  cursor: pointer;
+}
+
+.projectContent .projectRows .projectName {
+  font-size: 14px;
+}
+
+.projectContent .projectRows .projectPath {
+  font-size: 12px;
+}
+
+.projectContent .projectRows .projectOpenType {
+  font-size: 10px;
+}
+
+.projectContent .projectRows .btns {
+  margin-top: 10px;
+}
