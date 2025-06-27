@@ -102,14 +102,14 @@ export default {
     },
     // 选择文件夹
     scanProject() {
-      this.$ipcRenderer.send('select-folder-batch')
-      this.$ipcRenderer.on('dialog-result-batch', this.onDialogResult)
+      this.$ipcRenderer.send('dialog:select-folder-batch')
+      this.$ipcRenderer.on('dialog:dialog-result-batch', this.onDialogResult)
     },
     // 处理选择文件夹的结果
     onDialogResult(event, filePaths) {
       let folderPath = path.join(filePaths[0])
       console.log(folderPath)
-      this.$ipcRenderer.removeListener('dialog-result-batch', this.onDialogResult)
+      this.$ipcRenderer.removeListener('dialog:dialog-result-batch', this.onDialogResult)
       getFolderPathList(folderPath).then((ret) => {
         let arr = []
         ret.forEach((e) => {

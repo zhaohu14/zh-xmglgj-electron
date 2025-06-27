@@ -144,8 +144,8 @@ export default {
     },
     // 选择程序
     selectEXE () {
-      this.$ipcRenderer.send('select-exe')
-      this.$ipcRenderer.on('dialog-exe-result', this.onDialogExeResult)
+      this.$ipcRenderer.send('dialog:select-exe')
+      this.$ipcRenderer.on('dialog:dialog-exe-result', this.onDialogExeResult)
     },
     // 监听选择完成
     onDialogExeResult (event, filePaths) {
@@ -153,7 +153,7 @@ export default {
       let newRows = JSON.parse(JSON.stringify(this.newRows))
       newRows.exePath = folderPath
       this.newRows = newRows
-      this.$ipcRenderer.removeListener('dialog-exe-result', this.onDialogExeResult)
+      this.$ipcRenderer.removeListener('dialog:dialog-exe-result', this.onDialogExeResult)
     },
     saveOpenType () {
       readConfigJson('config.json').then((ret) => {

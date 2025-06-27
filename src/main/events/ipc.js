@@ -28,20 +28,25 @@ export default {
     _ipcMain.on("app-exit", async () => {
       app.exit();
     });
-    _ipcMain.on('select-folder', (event) => {
+    // 选择文件夹
+    _ipcMain.on('dialog:select-folder', (event) => {
+      mainWindow.focus()
       dialog.showOpenDialog(mainWindow, {
         properties: ['openFile', 'openDirectory']
       }).then(result => {
         console.log(result.canceled)
         if (!result.canceled) {
-          event.sender.send('dialog-result', result.filePaths)
+          event.sender.send('dialog:dialog-result', result.filePaths)
+          mainWindow.focus()
         }
 
       }).catch(err => {
         console.log(err)
       })
     })
-    _ipcMain.on('select-exe', (event) => {
+    // 选择程序
+    _ipcMain.on('dialog:select-exe', (event) => {
+      mainWindow.focus()
       dialog.showOpenDialog(mainWindow, {
         properties: ['openFile'],
         filters: [
@@ -49,24 +54,24 @@ export default {
           { name: 'All Files', extensions: ['*'] }
         ]
       }).then(result => {
-        // console.log(result.canceled)
         if (!result.canceled) {
-          event.sender.send('dialog-exe-result', result.filePaths)
+          event.sender.send('dialog:dialog-exe-result', result.filePaths)
+          mainWindow.focus()
         }
-
       }).catch(err => {
         console.log(err)
       })
     })
-     _ipcMain.on('select-folder-batch', (event) => {
+    // 选择文件夹
+     _ipcMain.on('dialog:select-folder-batch', (event) => {
+      mainWindow.focus()
       dialog.showOpenDialog(mainWindow, {
         properties: ['openFile', 'openDirectory']
       }).then(result => {
-        // console.log(result.canceled)
         if (!result.canceled) {
-          event.sender.send('dialog-result-batch', result.filePaths)
+          event.sender.send('dialog:dialog-result-batch', result.filePaths)
+          mainWindow.focus()
         }
-
       }).catch(err => {
         console.log(err)
       })

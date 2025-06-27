@@ -124,31 +124,12 @@ export default {
           break
       }
     },
-    scanProject() {
-      this.$ipcRenderer.send('select-folder')
-      this.$ipcRenderer.on('dialog-result', this.onDialogResult)
-    },
-    onDialogResult(event, filePaths) {
-      let folderPath = path.join(filePaths[0])
-      console.log(folderPath)
-      this.$ipcRenderer.removeListener('dialog-result', this.onDialogResult)
-      getFolderPathList(folderPath).then((ret) => {
-        let arr = []
-        ret.forEach((e) => {
-          arr.push({
-            name: '',
-            path: path.join(e),
-            openType: '',
-          })
-        })
-      })
-    },
     importProject() {
-      this.$ipcRenderer.send('select-folder')
-      this.$ipcRenderer.on('dialog-result', this.onImporTProject)
+      this.$ipcRenderer.send('dialog:select-folder')
+      this.$ipcRenderer.on('dialog:dialog-result', this.onImporTProject)
     },
     onImporTProject(event, filePaths) {
-      this.$ipcRenderer.removeListener('dialog-result', this.onImporTProject)
+      this.$ipcRenderer.removeListener('dialog:dialog-result', this.onImporTProject)
       let folderPath = path.join(filePaths[0])
       let obj = {
         name: '',
@@ -167,8 +148,6 @@ export default {
         if (!hasPath) {
           this.showChangeProjectRows = true
           this.waitProject = obj
-          // ret.projectList.push(obj)
-          // writeConfigJson(ret, 'config')
         }
       })
     },
