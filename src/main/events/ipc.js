@@ -32,11 +32,41 @@ export default {
       dialog.showOpenDialog(mainWindow, {
         properties: ['openFile', 'openDirectory']
       }).then(result => {
-        // console.log(result.canceled)
+        console.log(result.canceled)
         if (!result.canceled) {
           event.sender.send('dialog-result', result.filePaths)
         }
-        
+
+      }).catch(err => {
+        console.log(err)
+      })
+    })
+    _ipcMain.on('select-exe', (event) => {
+      dialog.showOpenDialog(mainWindow, {
+        properties: ['openFile'],
+        filters: [
+          { name: 'Executable Files', extensions: ['exe'] },
+          { name: 'All Files', extensions: ['*'] }
+        ]
+      }).then(result => {
+        // console.log(result.canceled)
+        if (!result.canceled) {
+          event.sender.send('dialog-exe-result', result.filePaths)
+        }
+
+      }).catch(err => {
+        console.log(err)
+      })
+    })
+     _ipcMain.on('select-folder-batch', (event) => {
+      dialog.showOpenDialog(mainWindow, {
+        properties: ['openFile', 'openDirectory']
+      }).then(result => {
+        // console.log(result.canceled)
+        if (!result.canceled) {
+          event.sender.send('dialog-result-batch', result.filePaths)
+        }
+
       }).catch(err => {
         console.log(err)
       })

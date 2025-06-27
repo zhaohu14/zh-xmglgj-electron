@@ -71,11 +71,21 @@ export default {
               type: 'new_project',
             },
             {
-              name: '扫描文件夹',
-              type: 'scan_project',
+              name: '批量导入',
+              type: 'batch_import',
             },
           ],
         },
+        {
+          name: '编辑',
+          showChidren: false,
+          chidren: [
+            {
+              name: '编辑打开方式',
+              type: 'editor_opentype'
+            }
+          ]
+        }
       ],
       showChangeProjectRows: false,
       waitProject: null,
@@ -104,9 +114,13 @@ export default {
           console.log('新建项目', this.$store.state)
           break
 
-        case 'scan_project':
-          console.log('扫描文件夹')
-          this.scanProject()
+        case 'batch_import':
+          console.log('批量导入')
+          this.$router.push({ name: 'batchImport' })
+          // this.scanProject()
+          break
+        case 'editor_opentype':
+          this.$router.push({ name: 'editorOpentype' })
           break
       }
     },

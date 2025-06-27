@@ -40,8 +40,8 @@ async function existsSyncConfig(folderPath, name) {
     console.log(err)
     console.log(`${name}.json 文件不存在！`)
     const config = {
-      projectList: [
-      ]
+      projectList: [], // 导入项目
+      openType: [], // 打开方式
     }
     fs.writeFile(`${name}.json`, JSON.stringify(config)).then((err) => {
       if (err) {
@@ -78,6 +78,7 @@ function saveReadConfigJson(configFilePath) {
     }
     const configData = JSON.parse(ret)
     store.commit('projectList', configData.projectList)
+     store.commit('openTypeList', configData.openType)
     console.log(configData)
   })
 }

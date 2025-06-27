@@ -1,3 +1,6 @@
+.projectContentView {
+  width: 100%;
+}
 .projectContent {
   display: flex;
   flex-wrap: wrap;
@@ -5,6 +8,8 @@
   align-items: flex-start;
   align-content: flex-start; /* 关键修复属性 */
   gap: 10px;
+  width: 98%;
+  margin-left: 1%;
 }
 
 .projectContent .projectRows {
@@ -29,4 +34,9 @@
 
 .projectContent .projectRows .btns {
   margin-top: 10px;
+}
+.searcView {
+  width: 80%;
+  margin-left: 10%;
+  margin-bottom: 20px;
 }
