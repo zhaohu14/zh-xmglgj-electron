@@ -1,11 +1,14 @@
 const logoPath = () => `${__static}/logo.png`;
+// const logoPath = () => `${__dirname}/public/logo.png`;
 const isDev = process.env.NODE_ENV === "development";
+const path = require("path")
 module.exports = {
-  appName: "person-admin",
+  appName: "项目管理工具",
   logoPath,
   openDev: isDev,
   windowOptions: () => ({
     icon: logoPath(), //应用运行时的标题栏图标
+    // icon: path.join(__dirname, 'public', 'logo.icon'),
     width: isDev ? 1200 : 900,
     height: 800,
     titleBarStyle: "hidden",
