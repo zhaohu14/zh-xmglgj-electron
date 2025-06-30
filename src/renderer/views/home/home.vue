@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <menuHeader></menuHeader>
+    <keep-alive>
+      <menuHeader @toPage="toPage"></menuHeader>
+    </keep-alive>
     <!-- 项目管理系统 -->
      <div class="content">
         <recentlyOpened></recentlyOpened>
@@ -28,7 +30,10 @@ export default {
 
   },
   methods: {
-    toPath(e) {
+    toPage(e) {
+      console.log(this, '=====')
+      console.log(e)
+      this.$router.push(e)
     }
   },
 }

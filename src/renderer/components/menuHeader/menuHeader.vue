@@ -1,5 +1,5 @@
 <template>
-  <div class="menuHeader">
+  <div v-if="show" class="menuHeader">
     <div class="images">
       <img src="../../assets/icon/tiger.png" alt />
     </div>
@@ -20,7 +20,7 @@
         >{{ chidren1.name }}</div>
       </div>
     </div>
-    <div v-if="showChangeProjectRows" class="changeProjectRows">
+    <div v-show="showChangeProjectRows" class="changeProjectRows">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span>完善项目信息</span>
@@ -49,6 +49,7 @@
 </template>
 <script>
 import path from 'path'
+import { mapState } from 'vuex'
 import {
   getFolderPathList,
   readConfigJson,
@@ -82,19 +83,43 @@ export default {
           chidren: [
             {
               name: '编辑打开方式',
-              type: 'editor_opentype'
-            }
-          ]
-        }
+              type: 'editor_opentype',
+            },
+          ],
+        },
       ],
       showChangeProjectRows: false,
-      waitProject: null,
+      waitProject: {
+        name: '',
+        path: '',
+        openType: ''
+      },
+      show: true,
+    }
+  },
+  computed: {
+    ...mapState({
+      onImport: (state) => state.dialog.onImport
+    })
+  },
+  watch: {
+    onImport (newVal, oldVal) {
+      if (newVal === '') {
+        return
+      }
+      this.waitProject.path = newVal
+      this.showChangeProjectRows = true
+      this.$store.commit('onImport', '')
     }
   },
   methods: {
     closeChangeProjectRows() {
       this.showChangeProjectRows = false
-      this.waitProject = null
+      this.waitProject = {
+        name: '',
+        path: '',
+        openType: ''
+      }
     },
     menusMouseenter(item) {
       item.showChidren = true
@@ -116,7 +141,8 @@ export default {
 
         case 'batch_import':
           console.log('批量导入')
-          this.$router.push({ name: 'batchImport' })
+          this.$emit('toPage', { name: 'batchImport' })
+          // this.$router.push({ name: 'batchImport' })
           // this.scanProject()
           break
         case 'editor_opentype':
@@ -124,32 +150,44 @@ export default {
           break
       }
     },
+    
     importProject() {
-      this.$ipcRenderer.send('dialog:select-folder')
-      this.$ipcRenderer.on('dialog:dialog-result', this.onImporTProject)
+      this.$ipcRenderer.send('dialog:select-folder-configuration', {
+        sendKey: 'dialog:dialog-result'
+      })
+      console.log(this)
+      // this.$ipcRenderer.on('dialog:dialog-result', this.onImporTProject)
     },
     onImporTProject(event, filePaths) {
-      this.$ipcRenderer.removeListener('dialog:dialog-result', this.onImporTProject)
       let folderPath = path.join(filePaths[0])
       let obj = {
         name: '',
         path: path.join(folderPath),
         openType: '',
       }
-      readConfigJson('config.json').then((ret) => {
-        console.log(ret)
-        let hasPath = false
-        ret.projectList.forEach((e) => {
-          if (e.path === folderPath) {
-            hasPath = true
-            return alert('该项目已存在')
+      console.log('导入项目：', folderPath)
+      readConfigJson('config.json')
+        .then((ret) => {
+          console.log(ret)
+          let hasPath = false
+          ret.projectList.forEach((e) => {
+            if (e.path === folderPath) {
+              hasPath = true
+              return alert('该项目已存在')
+            }
+          })
+          console.log(hasPath)
+          if (!hasPath) {
+            this.$nextTick(() => {
+              console.log('渲染完成')
+              this.showChangeProjectRows = true
+              this.waitProject = obj
+            })
           }
         })
-        if (!hasPath) {
-          this.showChangeProjectRows = true
-          this.waitProject = obj
-        }
-      })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     saveProjectRows() {
       readConfigJson('config.json').then((ret) => {
@@ -164,7 +202,11 @@ export default {
         if (!hasPath) {
           this.showChangeProjectRows = false
           let obj = JSON.parse(JSON.stringify(this.waitProject))
-          this.waitProject = null
+          this.waitProject = {
+            name: '',
+            path: '',
+            openType: ''
+          }
           ret.projectList.push(obj)
           writeConfigJson(ret, 'config', this).then((ret, err) => {
             if (!ret) {
@@ -173,7 +215,7 @@ export default {
             }
             this.$message({
               message: '添加成功',
-              type: 'success'
+              type: 'success',
             })
           })
         }

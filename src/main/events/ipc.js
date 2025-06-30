@@ -34,9 +34,9 @@ export default {
       dialog.showOpenDialog(mainWindow, {
         properties: ['openFile', 'openDirectory']
       }).then(result => {
-        console.log(result.canceled)
         if (!result.canceled) {
           event.sender.send('dialog:dialog-result', result.filePaths)
+          // _ipcMain.send('dialog:dialog-result', result.filePaths)
           mainWindow.focus()
         }
 
@@ -70,6 +70,21 @@ export default {
       }).then(result => {
         if (!result.canceled) {
           event.sender.send('dialog:dialog-result-batch', result.filePaths)
+          mainWindow.focus()
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    })
+
+    // 选择文件夹-可配置
+     _ipcMain.on('dialog:select-folder-configuration', (event, obj) => {
+      mainWindow.focus()
+      dialog.showOpenDialog(mainWindow, {
+        properties: ['openFile', 'openDirectory']
+      }).then(result => {
+        if (!result.canceled) {
+          event.sender.send(obj.sendKey, result.filePaths)
           mainWindow.focus()
         }
       }).catch(err => {

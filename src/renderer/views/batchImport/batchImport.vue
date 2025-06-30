@@ -72,6 +72,7 @@
 
 <script>
 import path from 'path'
+import { mapState } from 'vuex'
 import { getFolderPathList, readConfigJson, writeConfigJson } from '../../utils/utils.js'
 export default {
   name: 'BatchImport',
@@ -89,8 +90,24 @@ export default {
       dialogVisible: false
     }
   },
-  mounted() {},
+  computed: {
+    ...mapState({
+      batchImport: (state) => state.dialog.batchImport
+    })
+  },
+  watch: {
+    batchImport(newVal, oldVal) {
+      if (newVal === '') {
+        return
+      }
+      this.onDialogResult1(newVal)
+      this.$store.commit('batchImport', '')
+    }
+  },
   methods: {
+    toBack () {
+    this.$router.go(-1)
+  },
     closeOpenType () {
       this.dialogVisible = false
       this.newProjectIndex = null
@@ -102,14 +119,14 @@ export default {
     },
     // 选择文件夹
     scanProject() {
-      this.$ipcRenderer.send('dialog:select-folder-batch')
-      this.$ipcRenderer.on('dialog:dialog-result-batch', this.onDialogResult)
+      this.$ipcRenderer.send('dialog:select-folder-configuration', {
+        sendKey: 'dialog:dialog-result-batch',
+      })
     },
     // 处理选择文件夹的结果
-    onDialogResult(event, filePaths) {
-      let folderPath = path.join(filePaths[0])
-      console.log(folderPath)
-      this.$ipcRenderer.removeListener('dialog:dialog-result-batch', this.onDialogResult)
+    onDialogResult1(filePaths) {
+      console.log('选择的文件夹路径:', filePaths)
+      let folderPath = path.join(filePaths)
       getFolderPathList(folderPath).then((ret) => {
         let arr = []
         ret.forEach((e) => {
@@ -202,6 +219,9 @@ export default {
       this.newProjectIndex = index
     }
   },
+  beforeUnmount() {
+    this.$ipcRenderer.removeListener('dialog:dialog-result-batch', this.onDialogResult);
+  }
 }
 </script>
 <style scoped>
