@@ -9,8 +9,18 @@
         <div class="projectName">{{ project.name }}</div>
         <div class="projectPath">{{ project.path }}</div>
         <div class="btns">
-          <el-button @click="openDefaultType(project)">{{ project.openType }}打开</el-button>
-          <el-button>其他工具打开</el-button>
+          <el-button class="rows_btn" type="primary" @click="openDefaultType(project)">{{ project.openType }}打开</el-button>
+          <!-- <el-button>其他工具打开</el-button> -->
+           <el-dropdown>
+            <el-button class="el-icon-arrow-down rows_btn">
+              其他工具打开
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item v-for="(item, i) in openTypeList" :key="i" @click.native="openOtherType(project, item)">
+                {{ item.name }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+           </el-dropdown>
         </div>
       </div>
     </div>
@@ -71,6 +81,18 @@ export default {
 
         case 'exe':
           this.startEXE(item, openType.exePath)
+          break
+      }
+    },
+    openOtherType (project, item) {
+      console.log(project, item)
+      switch (item.openTools) {
+        case 'cmd':
+          this.startCMD(project)
+          break
+
+        case 'exe':
+          this.startEXE(project, item.exePath)
           break
       }
     },

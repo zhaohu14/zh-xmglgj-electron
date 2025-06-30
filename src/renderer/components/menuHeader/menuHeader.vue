@@ -40,7 +40,13 @@
         </div>
         <div class="inpuutRows">
           打开方式：
-          <el-input placeholder="请选择打开方式" v-model="waitProject.openType"></el-input>
+          <!-- <el-input placeholder="请选择打开方式" v-model="waitProject.openType"></el-input> -->
+           <el-autocomplete
+            class="inline-input"
+            v-model="waitProject.openType"
+            :fetch-suggestions="querySearch1"
+            placeholder="请输入内容"
+          ></el-autocomplete>
         </div>
         <el-button class="btns" @click="saveProjectRows">保存</el-button>
       </el-card>
@@ -99,7 +105,14 @@ export default {
   },
   computed: {
     ...mapState({
-      onImport: (state) => state.dialog.onImport
+      onImport: (state) => state.dialog.onImport,
+      openTypeList: (state) => {
+        return state.openType.openTypeList.map((ret) => {
+          return {
+            value: ret.name
+          }
+        })
+      },
     })
   },
   watch: {
@@ -113,6 +126,9 @@ export default {
     }
   },
   methods: {
+    querySearch1 (queryString, cb) {
+      cb(this.openTypeList)
+    },
     closeChangeProjectRows() {
       this.showChangeProjectRows = false
       this.waitProject = {

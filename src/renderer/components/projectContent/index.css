@@ -10,6 +10,12 @@
   gap: 10px;
   width: 98%;
   margin-left: 1%;
+  height: calc(90vh - 120px);
+  overflow: hidden;
+  overflow-y: scroll;
+  /* padding: 10px; */
+  padding-bottom: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
 
 .projectContent .projectRows {
@@ -18,14 +24,19 @@
   border-radius: 10px;
   box-shadow: 2px 2px 2px #dbdbdb;
   cursor: pointer;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 .projectContent .projectRows .projectName {
-  font-size: 14px;
+  font-size: 16px;
+  color: #409EFF;
 }
 
 .projectContent .projectRows .projectPath {
   font-size: 12px;
+  color: #909399;
 }
 
 .projectContent .projectRows .projectOpenType {
@@ -34,6 +45,9 @@
 
 .projectContent .projectRows .btns {
   margin-top: 10px;
+}
+.projectContent .projectRows .btns .rows_btn {
+  margin-right: 10px;
 }
 .searcView {
   width: 80%;

@@ -5,7 +5,7 @@
     </keep-alive>
     <!-- 项目管理系统 -->
      <div class="content">
-        <recentlyOpened></recentlyOpened>
+        <!-- <recentlyOpened></recentlyOpened> -->
         <projectContent></projectContent>
      </div>
   </div>
