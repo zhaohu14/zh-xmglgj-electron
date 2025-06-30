@@ -41,7 +41,20 @@ async function existsSyncConfig(folderPath, name) {
     console.log(`${name}.json 文件不存在！`)
     const config = {
       projectList: [], // 导入项目
-      openType: [], // 打开方式
+      openType: [
+        {
+          "name": "vsCode",
+          "openTools": "cmd",
+          "exePath": "",
+          "executeStatement": "code"
+        },
+        {
+          "name": "资源管理器",
+          "openTools": "cmd",
+          "executeStatement": "explorer.exe",
+          "exePath": ""
+        }
+      ], // 打开方式
     }
     fs.writeFile(`${name}.json`, JSON.stringify(config)).then((err) => {
       if (err) {

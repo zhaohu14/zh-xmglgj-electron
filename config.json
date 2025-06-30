@@ -465,6 +465,12 @@
       "openTools": "exe",
       "executeStatement": "",
       "exePath": "D:\\小程序开发者工具\\小程序开发者工具.exe"
+    },
+    {
+      "name": "资源管理器",
+      "openTools": "cmd",
+      "executeStatement": "explorer.exe",
+      "exePath": ""
     }
   ]
 }

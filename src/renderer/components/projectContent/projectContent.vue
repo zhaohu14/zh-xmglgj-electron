@@ -76,7 +76,7 @@ export default {
       console.log(openType)
       switch (openType.openTools) {
         case 'cmd':
-          this.startCMD(item)
+          this.startCMD(item, openType)
           break
 
         case 'exe':
@@ -88,7 +88,7 @@ export default {
       console.log(project, item)
       switch (item.openTools) {
         case 'cmd':
-          this.startCMD(project)
+          this.startCMD(project, item)
           break
 
         case 'exe':
@@ -96,8 +96,14 @@ export default {
           break
       }
     },
-    startCMD(item) {
-      exec(`code ${item.path}`, (error, stdout, stderr) => {
+    startCMD(item, openType) {
+      exec(`${openType.executeStatement} ${item.path}`, (error, stdout, stderr) => {
+        if (openType.name === '资源管理器') {
+          return this.$message({
+            message: '执行成功',
+            type: 'success',
+          })
+        }
         if (error) {
           this.$message.error(`执行失败${JSON.stringify(error)}`)
           return
