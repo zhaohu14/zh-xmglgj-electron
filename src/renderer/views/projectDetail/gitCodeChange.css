@@ -1,0 +1,29 @@
+.gitCodeChange {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.gitCodeChange .changFileDiv {
+  width: 120px;
+  height: 100%;
+  overflow: auto;
+  border-right: 1px solid #dbdbdb;
+}
+
+.gitCodeChange .changFileDiv .fileRows {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.gitCodeChange .changFileDiv .title .el-tag{
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+}

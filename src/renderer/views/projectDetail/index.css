@@ -1,0 +1,78 @@
+.breadcrumb {
+  padding-left: 20px;
+  height: 30px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.projectDetailContent {
+  width: 98%;
+  margin-left: 1%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  min-height: 40vh;
+  margin-top: 20px;
+  padding: 20px 0;
+}
+
+.projectDetailContent .detailHeader {
+  width: 95%;
+  margin-left: 2.5%;
+}
+
+.gitHistory {
+  width: 98%;
+  margin-left: 1%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  height: calc(80vh - 120px);
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+.gitHistory .gitHistoryShowList {
+  width: 240px;
+  height: 100%;
+  overflow: auto;
+  border-right: 1px solid #dbdbdb;
+}
+
+.gitHistory .gitHistoryShowList .historyRows {
+  max-width: 100%;
+  /* min-height: 80px; */
+  border-bottom: 1px solid #dbdbdb;
+  padding: 10px 10px;
+  /* font-size: 14px; */
+}
+
+.gitHistory .gitHistoryShowList .historyRows.y {
+  background: #dbdbdb;
+}
+
+.gitHistory .gitHistoryShowList .historyRows .massage {
+  font-size: 14px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.gitHistory .gitHistoryShowList .historyRows .time {
+  font-size: 12px;
+  color: #7e7e7e;
+}
+
+.gitBtns {
+  width: 98%;
+  margin-left: 1%;
+  margin-top: 20px;
+}
+
+.gitBtns .rows_btn {
+  margin-right: 10px;
+}
+
+.submitGitDiv {
+  margin-bottom: 10px;
+}

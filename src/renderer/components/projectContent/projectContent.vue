@@ -22,6 +22,10 @@
             </el-dropdown-menu>
            </el-dropdown>
         </div>
+        <div class="btns">
+          <el-button class="rows_btn" type="primary" @click="toDetail(project, index)">查看详情</el-button>
+          <!-- <el-button>其他工具打开</el-button> -->
+        </div>
       </div>
     </div>
   </div>
@@ -52,6 +56,7 @@ export default {
     this.search('')
   },
   methods: {
+    // 搜索
     search (e) {
       const key = e
       if (key === '') {
@@ -65,6 +70,7 @@ export default {
       })
       this.list = arr
     },
+    // 默认打开方式
     openDefaultType(item) {
       const name = item.openType
       let openType = null
@@ -84,6 +90,7 @@ export default {
           break
       }
     },
+    // 其他打开方式
     openOtherType (project, item) {
       console.log(project, item)
       switch (item.openTools) {
@@ -96,6 +103,7 @@ export default {
           break
       }
     },
+    // 命令语句执行
     startCMD(item, openType) {
       exec(`${openType.executeStatement} ${item.path}`, (error, stdout, stderr) => {
         if (openType.name === '资源管理器') {
@@ -118,6 +126,7 @@ export default {
         })
       })
     },
+    // exe程序执行
     startEXE(item, exePath) {
       console.log('执行exe')
       console.log(process.platform)
@@ -138,6 +147,15 @@ export default {
         })
       }
     },
+    toDetail(item, index) {
+      this.$router.push({
+        path: '/projectDetail',
+        query: {
+          project: item,
+          projectIndex: index
+        }
+      })
+    }
   },
 }
 </script>

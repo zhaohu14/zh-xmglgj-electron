@@ -3,14 +3,14 @@ import VueRouter from "vue-router"
 import Home from "../views/home/home.vue"
 import batchImport from "../views/batchImport/batchImport.vue"
 import editorOpentype from "../views/editorOpentype/editorOpentype.vue"
+import projectDetail from "../views/projectDetail/projectDetail.vue"
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: Home,
-    meta: { keepAlive: true }
+    component: Home
   },
   {
     path: "/batch-import",
@@ -21,6 +21,11 @@ const routes = [
     path: "/editorOpentype",
     name: "editorOpentype",
     component: editorOpentype,
+  },
+  {
+    path: "/projectDetail",
+    name: "projectDetail",
+    component: projectDetail,
   }
 ]
 
