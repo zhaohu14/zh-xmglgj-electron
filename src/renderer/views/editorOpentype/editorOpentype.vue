@@ -34,7 +34,18 @@
       </div>
       <div class="inputRows">
         <div class="inputTitle">打开类型：</div>
-        <el-input class="elInput" v-model="newRows.openTools"></el-input>
+        <el-input class="elInput" v-model="newRows.openTools" placeholder="请从以下选项中选取打开方式" disabled></el-input>
+      </div>
+      <div class="tips">
+        <el-tooltip class="item" effect="dark" content="执行命令语句" placement="top-start">
+          <el-button @click="changOpenTools('cmd')">cmd</el-button>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="指定程序打开文件夹" placement="top-start">
+          <el-button @click="changOpenTools('exe')">exe</el-button>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="指定程序打开子目录文件夹" placement="top-start">
+          <el-button @click="changOpenTools('pathExe')">pathExe</el-button>
+        </el-tooltip>
       </div>
       <div class="inputRows">
         <div class="inputTitle">程序安装地址：</div>
@@ -47,6 +58,10 @@
       <div class="inputRows">
         <div class="inputTitle">命令语句：</div>
         <el-input class="elInput" v-model="newRows.executeStatement"></el-input>
+      </div>
+      <div class="inputRows">
+        <div class="inputTitle">其他文件夹：</div>
+        <el-input class="elInput" v-model="newRows.openPath"></el-input>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="closeOpenType">取 消</el-button>
@@ -170,6 +185,10 @@ export default {
             })
         })
       })
+    },
+    // 更改打开方式
+    changOpenTools (type) {
+      this.newRows.openTools = type
     }
   },
   mounted() {

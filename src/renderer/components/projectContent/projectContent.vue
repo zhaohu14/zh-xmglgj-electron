@@ -24,6 +24,7 @@
         </div>
         <div class="btns">
           <el-button class="rows_btn" type="primary" @click="toDetail(project, index)">查看详情</el-button>
+          <!-- <el-button class="rows_btn" type="primary" @click="toDetail(project, index)"></el-button> -->
           <!-- <el-button>其他工具打开</el-button> -->
         </div>
       </div>
@@ -33,6 +34,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import project from '../../store/modules/project'
 const { exec } = require('child_process')
 export default {
   data() {
@@ -100,6 +102,11 @@ export default {
 
         case 'exe':
           this.startEXE(project, item.exePath)
+          break
+        case 'pathExe':
+          let newProject = JSON.parse(JSON.stringify(project))
+          newProject.path = newProject.path + item.openPath
+          this.startEXE(newProject, item.exePath)
           break
       }
     },

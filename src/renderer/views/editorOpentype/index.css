@@ -18,3 +18,7 @@
 .inputRows .elInput {
   max-width: calc(100% - 50px);
 }
+
+.tips {
+  margin-bottom: 10px;
+}
